@@ -1,5 +1,14 @@
-# 1) we install tailwind css and configure.
-# 2) 
+# NetflixGPT
+- Create React App
+- Configured TailwindCSS
+- Header
+- Routing in App
+- Login Form
+- Sign up Form
+- Form Validation
+- useRef Hook
+- Firebase Setup 
+- Deploying our app to production 
 
 
 # Features
@@ -16,3 +25,6 @@
 - NetflixGPT
     - Search Bar
     - Movie Suggestions
+
+
+# rafce stands for - react arrow function component export
