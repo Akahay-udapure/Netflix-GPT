@@ -1,11 +1,38 @@
-import { signOut } from "firebase/auth";
-import { useSelector } from "react-redux";
+import { signOut, onAuthStateChanged } from "firebase/auth";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../utils/firebase";
+import { addUser, removeUser } from "../utils/userSlice";
+import { useEffect } from "react";
+import { NETFLIX_LOGO } from "../utils/constant";
 
 const Header = () => {
     const user = useSelector((store) => store.user);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        const unSubscribe = onAuthStateChanged(auth, (user) => {
+            if (user) {
+                const { email, displayName, uid, photoURL } = user;
+                dispatch(
+                    addUser({
+                        uid: uid,
+                        email: email,
+                        displayName: displayName,
+                        photoURL: photoURL,
+                    }),
+                );
+                // ...
+                navigate("/browse");
+            } else {
+                dispatch(removeUser());
+                navigate("/");
+            }
+        });
+        return () => unSubscribe();
+    }, []);
+
     const onSignOut = () => {
         signOut(auth)
             .then(() => {
@@ -16,18 +43,16 @@ const Header = () => {
             });
     };
     return (
-        <div className="absolute w-screen px-8 py-4 bg-gradient-to-b from-black z-10 flex justify-between">
-            <img
-                className="w-44"
-                src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
-                alt=""
-            />
+        <div className="w-screen absolute px-8 bg-gradient-to-b from-black z-10 flex justify-between">
+            <img className="w-44" src={NETFLIX_LOGO} alt="" />
             {user && (
                 <ul className="flex">
                     <li>
-                        <p className="font-bold mt-6 mx-4">
-                            {user.displayName}
-                        </p>
+                        <img
+                            className="hidden md:block w-12 h-12 mt-2 mx-1"
+                            alt="usericon"
+                            src={user?.photoURL}
+                        />
                     </li>
                     <li className="mt-5">
                         <button
