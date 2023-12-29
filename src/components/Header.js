@@ -4,12 +4,15 @@ import { useNavigate } from "react-router-dom";
 import { auth } from "../utils/firebase";
 import { addUser, removeUser } from "../utils/userSlice";
 import { useEffect } from "react";
-import { NETFLIX_LOGO } from "../utils/constant";
+import { NETFLIX_LOGO, SUPPORTED_LANGAUGE } from "../utils/constant";
+import { toggleGPTSearchView } from "../utils/gptSlice";
+import { changeLangauge } from "../utils/configSlice";
 
 const Header = () => {
     const user = useSelector((store) => store.user);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const showGPTSearch = useSelector((store) => store.gpt.showGPTSearch);
 
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, (user) => {
@@ -42,21 +45,64 @@ const Header = () => {
                 navigate("/error");
             });
     };
+
+    const handleGPTSearchClick = () => {
+        dispatch(toggleGPTSearchView());
+    };
+    const handleOnLangaugeChange = (e) => {
+        dispatch(changeLangauge(e.target.value));
+    };
     return (
-        <div className="w-screen absolute px-8 bg-gradient-to-b from-black z-10 flex justify-between">
-            <img className="w-44" src={NETFLIX_LOGO} alt="" />
+        <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
+            <ul className="flex">
+                <li>
+                    <img className="w-44" src={NETFLIX_LOGO} alt="" />
+                </li>
+                <li className="mt-6 mx-2 text-white font-semibold cursor-pointer">
+                    Home
+                </li>
+                <li className="mt-6 mx-2 text-white font-semibold cursor-pointer">
+                    TV Shows
+                </li>
+                <li className="mt-6 mx-2 text-white font-semibold cursor-pointer">
+                    Movies
+                </li>
+            </ul>
             {user && (
-                <ul className="flex">
+                <ul className="flex p-2 mt-4">
+                    {showGPTSearch && (
+                        <li>
+                            <select
+                                className="py-2 rounded-lg bg-gray-700 text-white font-bold"
+                                onChange={handleOnLangaugeChange}>
+                                {SUPPORTED_LANGAUGE.map((lang) => (
+                                    <option
+                                        className="font-bold"
+                                        key={lang.identifier}
+                                        value={lang.identifier}>
+                                        {lang.name}
+                                    </option>
+                                ))}
+                            </select>
+                        </li>
+                    )}
+                    <li>
+                        <button
+                            className="py-2 px-4 mx-4 bg-purple-800 text-white rounded-lg"
+                            onClick={handleGPTSearchClick}>
+                            {showGPTSearch ? "Go To Homepage" : "GPT Search"}
+                        </button>
+                    </li>
                     <li>
                         <img
-                            className="hidden md:block w-12 h-12 mt-2 mx-1"
+                            className="hidden md:block w-10 h-10 mx-1"
                             alt="usericon"
                             src={user?.photoURL}
                         />
                     </li>
-                    <li className="mt-5">
+                    <li className="">
                         <button
-                            className="font-bold bg-pink-600 rounded-lg p-1"
+                            className="py-2 px-4 mx-4 bg-blue-600 text-white rounded-lg"
                             onClick={() => onSignOut()}>
                             Sign Out
                         </button>
