@@ -56,9 +56,9 @@ const Header = () => {
         <div className="absolute w-screen px-8 py-2 bg-gradient-to-b from-black z-10 flex justify-between">
             <ul className="flex">
                 <li>
-                    <img className="w-44" src={NETFLIX_LOGO} alt="" />
+                    <img className="w-20 mt-2 md:w-44" src={NETFLIX_LOGO} alt="" />
                 </li>
-                <li className="mt-6 mx-2 text-white font-semibold cursor-pointer">
+                {/* <li className="mt-6 mx-2 text-white font-semibold cursor-pointer">
                     Home
                 </li>
                 <li className="mt-6 mx-2 text-white font-semibold cursor-pointer">
@@ -66,10 +66,10 @@ const Header = () => {
                 </li>
                 <li className="mt-6 mx-2 text-white font-semibold cursor-pointer">
                     Movies
-                </li>
+                </li> */}
             </ul>
             {user && (
-                <ul className="flex p-2 mt-4">
+                <ul className="flex p-2 md:mt-4">
                     {showGPTSearch && (
                         <li>
                             <select
@@ -88,21 +88,21 @@ const Header = () => {
                     )}
                     <li>
                         <button
-                            className="py-2 px-4 mx-4 bg-purple-800 text-white rounded-lg"
+                            className="p-1 mx-1 py-2 md:px-4 md:mx-4 bg-purple-800 text-white rounded-lg"
                             onClick={handleGPTSearchClick}>
-                            {showGPTSearch ? "Go To Homepage" : "GPT Search"}
+                            {showGPTSearch ? "Homepage" : "GPT Search"}
                         </button>
                     </li>
-                    <li>
+                    {/* <li className="visible ">
                         <img
                             className="hidden md:block w-10 h-10 mx-1"
                             alt="usericon"
                             src={user?.photoURL}
                         />
-                    </li>
+                    </li> */}
                     <li className="">
                         <button
-                            className="py-2 px-4 mx-4 bg-blue-600 text-white rounded-lg"
+                            className="p-1 py-2 md:px-2 md:mx-2 bg-blue-600 text-white rounded-lg"
                             onClick={() => onSignOut()}>
                             Sign Out
                         </button>
