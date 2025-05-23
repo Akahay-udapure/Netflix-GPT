@@ -1,21 +1,24 @@
-const VideoTitle = ({ title, overview }) => {
+const VideoTitle = ({ title, overview, onPlayVideo }) => {
     return (
-        <div className="w-screen aspect-video pt-[20%] px-6 md:px-12 absolute bg-gradient-to-r from-black">
-            <h1 className="text-2xl md:text-5xl font-semibold text-white">
+        <div className="w-screen aspect-video pt-[20%] px-6 md:px-8 absolute bg-gradient-to-r from-brand-black"> {/* md:px-12 to md:px-8 */}
+            <h1 className="text-2xl md:text-5xl font-semibold text-brand-light-gray">
                 {title}
             </h1>
-            <p className="py-6 text-lg w-1/2 text-white hidden md:inline-block">
+            <p className="py-4 text-lg w-1/2 text-brand-light-gray hidden md:inline-block"> {/* py-6 to py-4 */}
                 {overview}
             </p>
             <div className="my-4 md:m-0 flex">
-                <button className="p-2 md:p-2 md:px-6 rounded-lg bg-white text-black font-bold flex">
+                <button 
+                    onClick={onPlayVideo}
+                    className="px-4 py-2 md:px-6 rounded-lg bg-brand-light-gray text-brand-dark font-bold flex items-center hover:bg-opacity-80 transition" /* Adjusted padding, added items-center */
+                >
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-6 h-6">
+                        className="w-6 h-6 mr-1">
                         <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -24,14 +27,14 @@ const VideoTitle = ({ title, overview }) => {
                     </svg>
                     <span>Play</span>
                 </button>
-                <button className="bg-gray-500 bg-opacity-50 hidden md:flex p-2 px-4 mx-2 rounded-lg text-white font-bold">
+                <button className="bg-brand-gray bg-opacity-70 hidden md:flex items-center px-4 py-2 mx-2 rounded-lg text-brand-light-gray font-bold hover:bg-opacity-60 transition"> {/* Adjusted padding, added items-center */}
                     <svg
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-6 h-6">
+                        className="w-6 h-6 mr-1">
                         <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
