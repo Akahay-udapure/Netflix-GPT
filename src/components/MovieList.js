@@ -21,7 +21,7 @@ const MovieList = ({ title, movies }) => {
     };
     return (
         <div className="px-6">
-            <h1 className="text-lg md:text-2xl py-4 font-semibold text-white">
+            <h1 className="text-lg md:text-2xl py-4 font-semibold text-brand-light-gray"> {/* text-white to text-brand-light-gray */}
                 {title}
             </h1>
             <div className="flex cursor-pointer overflow-x-auto overflow-y-hidden whitespace-nowrap scrollbar-thin scrollbar-thumb-transparent scrollbar-track-transparent">

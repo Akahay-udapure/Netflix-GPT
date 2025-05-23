@@ -1,3 +1,4 @@
+// src/utils/moviesSlice.js
 import { createSlice } from "@reduxjs/toolkit";
 
 const moviesSlice = createSlice({
@@ -8,25 +9,25 @@ const moviesSlice = createSlice({
         popularMovies: null,
         topratedMovies: null,
         upcomingMovies: null,
-        currenTrailer: null,
+        currenTrailer: null, // This seems to be the one to update
     },
     reducers: {
-        addNowPlayingMovies: (state, actions) => {
-            state.nowPlayingMovies = actions.payload;
+        addNowPlayingMovies: (state, action) => {
+            state.nowPlayingMovies = action.payload;
         },
-        addTrailerVideo: (state, actions) => {
-            state.trailerVideo = actions.payload;
+        addTrailerVideo: (state, action) => {
+            state.trailerVideo = action.payload;
         },
-        addPopularMovies: (state, actions) => {
-            state.popularMovies = actions.payload;
+        addPopularMovies: (state, action) => {
+            state.popularMovies = action.payload;
         },
-        addTopRatedMovies: (state, actions) => {
-            state.topratedMovies = actions.payload;
+        addTopRatedMovies: (state, action) => {
+            state.topratedMovies = action.payload;
         },
-        addUpcomingMovies: (state, actions) => {
-            state.upcomingMovies = actions.payload;
+        addUpcomingMovies: (state, action) => {
+            state.upcomingMovies = action.payload;
         },
-        addCurrentTrailer: (state, action) => {
+        setCurrentTrailer: (state, action) => { // New reducer added
             state.currenTrailer = action.payload;
         },
     },
@@ -38,6 +39,6 @@ export const {
     addPopularMovies,
     addTopRatedMovies,
     addUpcomingMovies,
-    addCurrentTrailer,
+    setCurrentTrailer, // New action exported
 } = moviesSlice.actions;
 export default moviesSlice.reducer;
